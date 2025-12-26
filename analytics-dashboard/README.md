@@ -1,73 +1,145 @@
-# React + TypeScript + Vite
+# Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive analytics dashboard built with React and JavaScript, featuring real-time data visualization, dark mode support, and a clean, professional UI.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **📊 Interactive Charts**: Platform distribution (donut chart), revenue trends (bar charts), sales dynamics (line charts)
+- **📈 Real-time Metrics**: Revenue tracking, user performance, KPI monitoring, win/loss ratios
+- **🎨 Modern UI/UX**: Clean design with smooth animations, hover effects, and micro-interactions
+- **🌓 Dark Mode**: Seamless theme switching with persistent preferences
+- **📱 Responsive Design**: Fully responsive layout optimized for desktop, tablet, and mobile
+- **⚡ Performance**: Optimized with React best practices and efficient rendering
+- **🎯 Type Safety**: Comprehensive JSDoc documentation for better code intelligence
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend Framework**: React 19.2.0
+- **Build Tool**: Vite 7.2.4
+- **Styling**: Tailwind CSS 3.4.17
+- **Icons**: Lucide React 0.562.0
+- **Language**: JavaScript (ES2020+)
+- **State Management**: React Context API
+- **Code Quality**: ESLint with React best practices
 
-## Expanding the ESLint configuration
+## 📦 Project Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```
+analytics-dashboard/
+├── src/
+│   ├── components/
+│   │   ├── charts/          # Chart components (Platform, Revenue, Sales)
+│   │   ├── data/            # Data table components
+│   │   ├── layout/          # Layout components (Header, Sidebar)
+│   │   ├── metrics/         # Metric cards and stats
+│   │   └── ui/              # Reusable UI components (Toast)
+│   ├── context/             # React Context for state management
+│   ├── hooks/               # Custom React hooks
+│   ├── services/            # API services and data fetching
+│   ├── App.jsx              # Main application component
+│   ├── main.jsx             # Application entry point
+│   └── index.css            # Global styles and Tailwind config
+├── public/                  # Static assets
+├── index.html               # HTML template
+├── package.json             # Dependencies and scripts
+├── vite.config.js           # Vite configuration
+├── tailwind.config.js       # Tailwind CSS configuration
+└── eslint.config.js         # ESLint configuration
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚦 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js 16.x or higher
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/hashmessi/web-dashboard-design.git
+cd analytics-dashboard
 ```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Open your browser and navigate to:
+```
+http://localhost:5173
+```
+
+## 📜 Available Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint to check code quality
+
+## 🎨 Key Components
+
+### Dashboard Layout
+- **Sidebar**: Collapsible navigation with folders and reports
+- **Header**: Search bar, theme toggle, and user profile
+- **Main Content**: Organized grid layout with metrics and charts
+
+### Metrics & Analytics
+- **Revenue Hero**: Large revenue display with trend indicators
+- **Metric Cards**: Top sales, best deal, deals count, value, win rate
+- **User Stats**: Top performers with revenue breakdown
+- **Platform Analytics**: Multi-platform revenue distribution
+
+### Charts & Visualizations
+- **Platform Chart**: Donut chart showing platform distribution
+- **Revenue Bar Chart**: Platform-wise revenue comparison
+- **Sales Dynamic Chart**: Line chart with trend analysis
+- **Platform Value Chart**: Monthly revenue breakdown
+
+### Data Management
+- **Data Table**: Sortable user performance table
+- **Context API**: Centralized state management
+- **Mock Data Service**: Simulated API with realistic data
+
+## 🎯 Code Quality Features
+
+- **JSDoc Documentation**: Comprehensive inline documentation
+- **Component Comments**: Clear explanations of component purpose
+- **Organized Imports**: Grouped by category (React, components, icons, context)
+- **Consistent Naming**: Clear, descriptive variable and function names
+- **Error Handling**: Proper loading states and error boundaries
+- **Accessibility**: ARIA labels and semantic HTML
+
+## 🌐 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## 📝 License
+
+This project is open source and available under the MIT License.
+
+## 👤 Author
+
+**Jaikishan**
+- GitHub: [@hashmessi](https://github.com/hashmessi)
+
+## 🙏 Acknowledgments
+
+- Design inspiration from modern analytics platforms
+- Icons by [Lucide](https://lucide.dev/)
+- UI components styled with [Tailwind CSS](https://tailwindcss.com/)
+
+---
+
+**Note**: This dashboard uses mock data for demonstration purposes. In a production environment, connect to your actual API endpoints by modifying the `src/services/api.js` file.

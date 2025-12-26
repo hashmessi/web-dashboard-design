@@ -1,3 +1,15 @@
+/**
+ * Dashboard Context - Global State Management
+ * 
+ * Provides centralized state management for the analytics dashboard including:
+ * - Dashboard data (metrics, users, charts)
+ * - UI state (loading, mobile menu, theme)
+ * - User interactions (toasts, sorting)
+ * - Data fetching and refresh logic
+ * 
+ * @module DashboardContext
+ */
+
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { DashboardService, mockData } from '../services/api';
 
@@ -21,6 +33,13 @@ const initialState = {
 
 const DashboardContext = createContext(undefined);
 
+/**
+ * Dashboard State Reducer
+ * Handles all state transitions for the dashboard
+ * @param {Object} state - Current state
+ * @param {Object} action - Action with type and payload
+ * @returns {Object} New state
+ */
 const dashboardReducer = (state, action) => {
   switch (action.type) {
     case 'SET_LOADING':
@@ -68,6 +87,10 @@ export const DashboardProvider = ({ children }) => {
     return 'light';
   });
 
+  /**
+   * Refresh dashboard data from API
+   * Fetches new data based on current date range
+   */
   const refresh = React.useCallback(async () => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
@@ -95,6 +118,10 @@ export const DashboardProvider = ({ children }) => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  /**
+   * Toggle between light and dark themes
+   * Updates state and persists to localStorage
+   */
   const toggleTheme = () => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
@@ -137,6 +164,7 @@ export const DashboardProvider = ({ children }) => {
  * Hook to access dashboard context
  * @returns {Object} Dashboard context value
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const useDashboard = () => {
   const context = useContext(DashboardContext);
   if (!context) {
