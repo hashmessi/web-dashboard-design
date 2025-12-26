@@ -1,13 +1,19 @@
 import { useState, useEffect } from 'react';
 
-export const useAnimatedNumber = (end: number, duration: number = 2000) => {
+/**
+ * Custom hook for animating number values with easing
+ * @param {number} end - Target number to animate to
+ * @param {number} duration - Animation duration in milliseconds (default: 2000)
+ * @returns {number} Current animated value
+ */
+export const useAnimatedNumber = (end, duration = 2000) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let startTime: number;
-    let animationFrame: number;
+    let startTime;
+    let animationFrame;
 
-    const animate = (currentTime: number) => {
+    const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const progress = (currentTime - startTime) / duration;
 

@@ -1,42 +1,27 @@
-import React, { createContext, useContext, useReducer, useEffect, type ReactNode } from 'react';
-import type { DashboardState, UserRow } from '../types';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { DashboardService, mockData } from '../services/api';
 
-type Action = 
-  | { type: 'SET_LOADING'; payload: boolean }
-  | { type: 'SET_DATA'; payload: DashboardState }
-  | { type: 'SET_DATE_RANGE'; payload: string }
-  | { type: 'SET_SEARCH_QUERY'; payload: string }
-  | { type: 'TOGGLE_MOBILE_MENU'; payload?: boolean }
-  | { type: 'ADD_TOAST'; payload: { id: string; message: string; type: 'success' | 'error' | 'info' } }
-  | { type: 'REMOVE_TOAST'; payload: string }
-  | { type: 'SORT_USERS'; payload: { key: keyof UserRow; direction: 'asc' | 'desc' } };
+/**
+ * @typedef {Object} Toast
+ * @property {string} id
+ * @property {string} message
+ * @property {'success'|'error'|'info'} type
+ */
 
-export interface Toast {
-  id: string;
-  message: string;
-  type: 'success' | 'error' | 'info';
-}
+/**
+ * @typedef {Object} Action
+ * @property {string} type
+ * @property {*} [payload]
+ */
 
-interface DashboardContextType extends DashboardState {
-  dispatch: React.Dispatch<Action>;
-  refresh: () => void;
-  sortConfig: { key: keyof UserRow; direction: 'asc' | 'desc' } | null;
-  isMobileMenuOpen: boolean;
-  toasts: Toast[];
-  showToast: (message: string, type?: 'success' | 'error' | 'info') => void;
-  theme: 'light' | 'dark';
-  toggleTheme: () => void;
-}
-
-const initialState: DashboardState = {
+const initialState = {
   ...mockData,
   isLoading: true, // Start in loading state
 };
 
-const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
+const DashboardContext = createContext(undefined);
 
-const dashboardReducer = (state: DashboardState, action: Action): DashboardState & { isMobileMenuOpen?: boolean; toasts?: Toast[] } => {
+const dashboardReducer = (state, action) => {
   switch (action.type) {
     case 'SET_LOADING':
       return { ...state, isLoading: action.payload };
@@ -62,13 +47,19 @@ const dashboardReducer = (state: DashboardState, action: Action): DashboardState
   }
 };
 
-export const DashboardProvider = ({ children }: { children: ReactNode }) => {
+/**
+ * Dashboard Provider Component
+ * @param {Object} props
+ * @param {React.ReactNode} props.children
+ */
+export const DashboardProvider = ({ children }) => {
   const [state, dispatch] = useReducer(dashboardReducer, initialState);
-  const [sortConfig, setSortConfig] = React.useState<{ key: keyof UserRow; direction: 'asc' | 'desc' } | null>(null);
+  const [sortConfig, setSortConfig] = React.useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [toasts, setToasts] = React.useState<Toast[]>([]);
+  const [toasts, setToasts] = React.useState([]);
+  
   // Initialize theme from localStorage or system preference
-  const [theme, setTheme] = React.useState<'light' | 'dark'>(() => {
+  const [theme, setTheme] = React.useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
       if (saved === 'dark' || saved === 'light') return saved;
@@ -108,7 +99,12 @@ export const DashboardProvider = ({ children }: { children: ReactNode }) => {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
-  const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
+  /**
+   * Show a toast notification
+   * @param {string} message
+   * @param {'success'|'error'|'info'} type
+   */
+  const showToast = (message, type = 'info') => {
     const id = Date.now().toString();
     setToasts(prev => [...prev, { id, message, type }]);
     
@@ -119,7 +115,7 @@ export const DashboardProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Handle local sorting side-effect and mobile menu
-  const handleDispatch = (action: Action) => {
+  const handleDispatch = (action) => {
     if (action.type === 'SORT_USERS') {
       setSortConfig(action.payload);
     }
@@ -137,6 +133,10 @@ export const DashboardProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+/**
+ * Hook to access dashboard context
+ * @returns {Object} Dashboard context value
+ */
 export const useDashboard = () => {
   const context = useContext(DashboardContext);
   if (!context) {

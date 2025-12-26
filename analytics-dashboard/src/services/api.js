@@ -1,8 +1,67 @@
-import type { DashboardState, UserRow } from '../types';
+/**
+ * Dashboard API Service
+ * Provides mock data and data fetching utilities for the analytics dashboard
+ */
 
 const MOCK_DELAY = 800;
 
-export const mockData: DashboardState = {
+/**
+ * @typedef {Object} Metric
+ * @property {string} title
+ * @property {number} value
+ * @property {string} [prefix]
+ * @property {string} [suffix]
+ * @property {Object} [trend]
+ * @property {number} trend.value
+ * @property {boolean} trend.isPositive
+ * @property {string} trend.label
+ * @property {string} [subValue]
+ * @property {string} [avatar]
+ * @property {boolean} [dark]
+ * @property {boolean} [pill]
+ * @property {boolean} [formatCompact]
+ */
+
+/**
+ * @typedef {Object} UserRow
+ * @property {string} id
+ * @property {string} name
+ * @property {string} avatar
+ * @property {number} revenue
+ * @property {number} leads
+ * @property {number} kpi - 0-1 range
+ * @property {number} winRate - 0-100 range
+ * @property {'active'|'offline'|'busy'} status
+ */
+
+/**
+ * @typedef {Object} ChartDataPoint
+ * @property {string} label
+ * @property {number} value
+ * @property {number} [secondaryValue]
+ */
+
+/**
+ * @typedef {Object} PlatformStat
+ * @property {string} name
+ * @property {number} revenue
+ * @property {number} growth - percentage
+ * @property {string} color
+ * @property {string} icon
+ */
+
+/**
+ * @typedef {Object} DashboardState
+ * @property {string} dateRange - '7d' | '30d' | '90d' | 'all'
+ * @property {string} searchQuery
+ * @property {boolean} isLoading
+ * @property {Metric[]} metrics
+ * @property {UserRow[]} users
+ * @property {ChartDataPoint[]} revenueHistory
+ * @property {PlatformStat[]} platformStats
+ */
+
+export const mockData = {
   dateRange: '30d',
   searchQuery: '',
   isLoading: false,
@@ -34,13 +93,18 @@ export const mockData: DashboardState = {
 };
 
 export const DashboardService = {
-  fetchDashboardData: (dateRange: string = '30d'): Promise<DashboardState> => {
+  /**
+   * Fetch dashboard data based on date range
+   * @param {string} dateRange - '7d' | '30d' | '90d' | 'all'
+   * @returns {Promise<DashboardState>}
+   */
+  fetchDashboardData: (dateRange = '30d') => {
     return new Promise((resolve) => {
       setTimeout(() => {
         // Generate slightly different data based on date range to simulate interactivity
         const multiplier = dateRange === '7d' ? 0.25 : dateRange === '90d' ? 3 : 1;
         
-        const dynamicData: DashboardState = {
+        const dynamicData = {
             ...mockData,
             dateRange,
             metrics: mockData.metrics.map(m => ({
@@ -69,7 +133,14 @@ export const DashboardService = {
     });
   },
 
-  sortUsers: (users: UserRow[], key: keyof UserRow, direction: 'asc' | 'desc'): UserRow[] => {
+  /**
+   * Sort users by a specific key
+   * @param {UserRow[]} users
+   * @param {string} key
+   * @param {'asc'|'desc'} direction
+   * @returns {UserRow[]}
+   */
+  sortUsers: (users, key, direction) => {
     return [...users].sort((a, b) => {
       if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
       if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
