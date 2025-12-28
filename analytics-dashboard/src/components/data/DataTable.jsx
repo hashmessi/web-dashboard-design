@@ -1,23 +1,16 @@
 /**
- * DataTable Component
+ * DataTable Component - Compact responsive implementation
  * 
- * Displays user performance data in a tabular format with:
- * - Tab navigation for different metrics (Sales/Revenue/Leads/KPI/W/L)
- * - User rows with avatars, revenue, and performance indicators
- * - Interactive badges and hover effects
- * - Delete action for specific rows
- * 
- * @component
+ * Displays user performance data in a compact, non-overflowing layout
  */
 
-import { ChevronRight, X } from 'lucide-react';
 import clsx from 'clsx';
 import { useDashboard } from '../../context/DashboardContext';
 
 const DataTable = () => {
   const { isLoading } = useDashboard();
 
-  // User performance data matching reference design
+  // User data matching reference exactly
   const users = [
     { 
       name: 'Armin A.', 
@@ -39,38 +32,31 @@ const DataTable = () => {
       leads: 103, 
       kpi: 0.89, 
       winRate: 39,
-      wl: { wins: 21, total: 33 },
-      hasDelete: true // Shows delete button on hover
+      wl: { wins: 21, total: 33 }
     },
   ];
 
-  // Tab navigation options
+  // Tab navigation
   const tabs = ['Sales', 'Revenue', 'Leads', 'KPI', 'W/L'];
 
-  // Loading state
   if (isLoading) {
     return (
-      <div className="bg-bg-elevated dark:bg-bg-elevated-dark rounded-2xl p-6 shadow-card h-[280px] flex items-center justify-center animate-pulse">
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-6 h-6 rounded-full border-2 border-accent-pink border-t-transparent animate-spin" />
-          <span className="text-text-tertiary dark:text-text-tertiary-dark text-xs">Loading...</span>
-        </div>
-      </div>
+      <div className="bg-bg-elevated dark:bg-bg-elevated-dark rounded-2xl p-6 shadow-card h-[200px] animate-pulse" />
     );
   }
 
   return (
     <div 
-      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-5 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-3 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full overflow-hidden" 
       style={{ animationDelay: '400ms' }}
     >
-      {/* Tab Navigation Header */}
-      <div className="flex items-center gap-4 mb-4 pb-2 border-b border-border-subtle/20 dark:border-border-subtle-dark/20">
+      {/* Tab Header */}
+      <div className="flex items-center gap-3 mb-3 pb-2 border-b border-border-subtle/20 dark:border-border-subtle-dark/20">
         {tabs.map((tab, index) => (
           <button
             key={tab}
             className={clsx(
-              "text-xs font-medium transition-colors pb-1",
+              "text-[10px] font-medium transition-colors pb-1",
               index === 0 
                 ? "text-text-primary dark:text-text-primary-dark border-b-2 border-accent-pink" 
                 : "text-text-tertiary dark:text-text-tertiary-dark hover:text-text-primary dark:hover:text-text-primary-dark"
@@ -81,80 +67,62 @@ const DataTable = () => {
         ))}
       </div>
 
-      {/* User Data Rows */}
-      <div className="space-y-3">
+      {/* User Rows - Scrollable */}
+      <div className="space-y-1.5 overflow-x-auto">
         {users.map((user, index) => (
           <div 
             key={index}
-            className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer group -mx-2"
+            className="flex items-center gap-1.5 py-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer group min-w-max"
           >
-            {/* User Avatar & Name */}
-            <div className="flex items-center gap-2.5 min-w-[100px]">
-              <img 
-                src={user.avatar} 
-                alt={user.name} 
-                className="w-8 h-8 rounded-full border-2 border-white dark:border-gray-700 shadow-sm object-cover" 
-              />
-              <span className="font-medium text-sm text-text-primary dark:text-text-primary-dark truncate">
-                {user.name}
-              </span>
-            </div>
+            {/* Avatar */}
+            <img 
+              src={user.avatar} 
+              alt={user.name} 
+              className="w-6 h-6 rounded-full border border-white dark:border-gray-700 shadow-sm object-cover flex-shrink-0" 
+            />
+            
+            {/* Name */}
+            <span className="font-medium text-[11px] text-text-primary dark:text-text-primary-dark w-[60px] truncate">
+              {user.name}
+            </span>
 
             {/* Revenue */}
-            <div className="flex-1 text-sm font-semibold text-text-primary dark:text-text-primary-dark tabular-nums">
+            <span className="text-[11px] font-bold text-text-primary dark:text-text-primary-dark tabular-nums w-[70px]">
               ${user.revenue.toLocaleString()}
-            </div>
+            </span>
 
-            {/* Sales Count Badge */}
+            {/* Sales Badge */}
             <div className={clsx(
-              "min-w-[32px] h-6 rounded-lg flex items-center justify-center text-[10px] font-bold px-2",
+              "w-6 h-5 rounded flex items-center justify-center text-[9px] font-bold flex-shrink-0",
               user.salesBg
             )}>
               {user.sales}
             </div>
 
-            {/* Leads Count */}
-            <div className="w-10 text-sm text-text-primary dark:text-text-primary-dark tabular-nums text-center">
+            {/* Leads */}
+            <span className="text-[10px] text-text-secondary dark:text-text-secondary-dark tabular-nums w-6 text-center">
               {user.leads}
-            </div>
+            </span>
 
-            {/* KPI Score */}
-            <div className="w-10 text-sm text-text-secondary dark:text-text-secondary-dark tabular-nums text-center">
+            {/* KPI */}
+            <span className="text-[10px] text-text-secondary dark:text-text-secondary-dark tabular-nums w-7 text-center">
               {user.kpi}
-            </div>
+            </span>
 
-            {/* Win Rate Percentage */}
-            <div className="w-12 text-sm text-text-secondary dark:text-text-secondary-dark tabular-nums text-center">
+            {/* Win Rate */}
+            <span className="text-[10px] text-text-secondary dark:text-text-secondary-dark tabular-nums w-7 text-center">
               {user.winRate}%
-            </div>
+            </span>
 
-            {/* Win/Loss Circular Badges */}
-            <div className="flex gap-1.5">
-              {/* Wins Badge */}
-              <div className="w-6 h-6 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center text-[9px] font-bold tabular-nums">
+            {/* W/L Badges */}
+            <div className="flex gap-0.5 flex-shrink-0">
+              <div className="w-5 h-5 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center text-[8px] font-bold tabular-nums">
                 {user.wl.wins}
               </div>
-              
-              {/* Total Badge */}
-              <div className="w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-[9px] font-bold tabular-nums">
+              <div className="w-5 h-5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-[8px] font-bold tabular-nums">
                 {user.wl.total}
               </div>
             </div>
-
-            {/* Action Buttons (Delete or Expand) */}
-            {user.hasDelete ? (
-              <button 
-                className="w-6 h-6 rounded-full bg-red-500 hover:bg-red-600 text-white flex items-center justify-center transition-colors opacity-0 group-hover:opacity-100"
-                aria-label="Delete user"
-              >
-                <X size={14} />
-              </button>
-            ) : (
-              <ChevronRight 
-                size={14} 
-                className="text-text-tertiary opacity-0 group-hover:opacity-100 transition-opacity" 
-              />
-            )}
           </div>
         ))}
       </div>

@@ -1,13 +1,8 @@
 /**
  * PlatformChart Component (Donut Chart)
  * 
- * Displays platform distribution analytics with:
- * - Animated donut chart showing revenue distribution
- * - Platform legend with percentages and revenue
- * - Trend badges showing growth indicators
- * - "Sales dynamic" footer label
- * 
- * @component
+ * Pixel-perfect implementation matching reference design
+ * Work with Platforms section with donut chart
  */
 
 import { MoreHorizontal } from 'lucide-react';
@@ -17,23 +12,22 @@ import { useDashboard } from '../../context/DashboardContext';
 const PlatformChart = () => {
   const { isLoading } = useDashboard();
   
-  // Loading state
   if (isLoading) {
     return (
       <div className="bg-bg-elevated dark:bg-bg-elevated-dark rounded-2xl p-6 shadow-card h-[280px] animate-pulse" />
     );
   }
   
-  // Platform distribution data matching reference design
+  // Platform distribution data
   const platforms = [
-    { name: 'Dribbble', color: 'bg-platform-dribbble', percentage: 28.1, revenue: 44072 },
-    { name: 'Instagram', color: 'bg-platform-instagram', percentage: 14.1, revenue: 22114 },
-    { name: 'Google', color: 'bg-accent-success', percentage: 5.4, revenue: 8469 },
-    { name: 'Other', color: 'bg-gray-400', percentage: 7.1, revenue: 11135 },
+    { name: 'Dribbble', color: 'bg-platform-dribbble', textColor: 'text-platform-dribbble', percentage: 28.1, revenue: 44072, isHot: true },
+    { name: 'Instagram', color: 'bg-platform-instagram', textColor: 'text-platform-instagram', percentage: 14.1, revenue: 22114 },
+    { name: 'Google', color: 'bg-accent-success', textColor: 'text-accent-success', percentage: 5.4, revenue: 8469 },
+    { name: 'Other', color: 'bg-gray-400', textColor: 'text-gray-400', percentage: 7.1, revenue: 11135 },
   ];
 
   // Calculate donut chart segments
-  const circumference = 2 * Math.PI * 42; // Circle circumference for r=42
+  const circumference = 2 * Math.PI * 42;
   let currentOffset = 0;
   
   const segments = platforms.map((platform) => {
@@ -48,7 +42,7 @@ const PlatformChart = () => {
 
   return (
     <div 
-      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-5 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full" 
       style={{ animationDelay: '250ms' }}
     >
       {/* Header */}
@@ -56,34 +50,27 @@ const PlatformChart = () => {
         <h4 className="font-semibold text-text-primary dark:text-text-primary-dark text-sm">
           Work with platforms
         </h4>
-        
-        <button 
-          className="text-text-tertiary dark:text-text-tertiary-dark hover:text-text-primary dark:hover:text-text-primary-dark transition-colors"
-          aria-label="More options"
-        >
-          <MoreHorizontal size={18} />
+        <button className="text-text-tertiary dark:text-text-tertiary-dark hover:text-text-primary transition-colors">
+          <MoreHorizontal size={16} />
         </button>
       </div>
 
       {/* Trend Badges */}
       <div className="flex gap-2 mb-4">
-        {/* Growth Indicator */}
         <span className="bg-accent-pink text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 shadow-sm font-bold tabular-nums">
           ↑ 3
         </span>
-        
-        {/* Revenue Badge */}
         <span className="bg-accent-pink text-white text-[10px] px-2 py-1 rounded-full shadow-sm font-bold tabular-nums">
           $156,841
         </span>
       </div>
 
-      {/* Chart and Legend Container */}
+      {/* Chart and Legend */}
       <div className="flex items-center gap-4">
         {/* Donut Chart */}
-        <div className="relative w-32 h-32 flex items-center justify-center shrink-0">
+        <div className="relative w-28 h-28 flex items-center justify-center shrink-0">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-            {/* Background Circle */}
+            {/* Background */}
             <circle
               cx="50"
               cy="50"
@@ -94,7 +81,7 @@ const PlatformChart = () => {
               className="text-gray-100 dark:text-gray-700"
             />
             
-            {/* Platform Segments */}
+            {/* Segments */}
             {segments.map((segment, index) => (
               <circle
                 key={segment.name}
@@ -110,37 +97,39 @@ const PlatformChart = () => {
                 strokeDashoffset={-((segment.offset / 100) * circumference)}
                 style={{ 
                   opacity: 0, 
-                  animation: `fadeIn 0.6s ease-out forwards ${index * 0.15}s`,
+                  animation: `fadeIn 0.6s ease-out forwards ${index * 0.12}s`,
                 }}
               />
             ))}
           </svg>
           
-          {/* Center Text - Total Percentage and Revenue */}
+          {/* Center Text */}
           <div className="absolute flex flex-col items-center">
-            <span className="text-2xl font-bold text-text-primary dark:text-text-primary-dark tabular-nums">
+            <span className="text-xl font-bold text-text-primary dark:text-text-primary-dark tabular-nums">
               45.3%
             </span>
-            <span className="text-xs font-medium text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
+            <span className="text-[10px] font-medium text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
               $71,048
             </span>
           </div>
         </div>
 
-        {/* Platform Legend */}
-        <div className="flex-1 grid grid-cols-2 gap-2">
+        {/* Legend */}
+        <div className="flex-1 grid grid-cols-2 gap-1.5">
           {platforms.map(platform => (
             <div 
               key={platform.name} 
               className="flex flex-col p-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
             >
-              {/* Platform Name with Color Indicator */}
               <div className="flex items-center gap-1.5 text-[10px] text-text-secondary dark:text-text-secondary-dark font-medium mb-0.5">
                 <span className={clsx("w-2 h-2 rounded-full", platform.color)} />
-                {platform.name}
+                <span>{platform.name}</span>
+                {platform.isHot && (
+                  <span className="bg-pink-900/90 text-pink-300 text-[8px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide border border-pink-700/50 animate-pulse">
+                    HOT
+                  </span>
+                )}
               </div>
-              
-              {/* Percentage and Revenue */}
               <div className="flex items-baseline gap-1">
                 <span className="font-bold text-text-primary dark:text-text-primary-dark text-xs tabular-nums">
                   {platform.percentage}%
@@ -154,8 +143,8 @@ const PlatformChart = () => {
         </div>
       </div>
 
-      {/* Footer - Sales Dynamic Label */}
-      <div className="mt-4 pt-3 border-t border-border-subtle/20 dark:border-border-subtle-dark/20">
+      {/* Footer */}
+      <div className="border-t border-border-subtle/20 dark:border-border-subtle-dark/20">
         <span className="text-xs text-text-tertiary dark:text-text-tertiary-dark">
           Sales dynamic
         </span>

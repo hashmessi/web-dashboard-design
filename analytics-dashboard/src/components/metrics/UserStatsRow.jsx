@@ -1,13 +1,8 @@
 /**
  * UserStatsRow Component
  * 
- * Displays user performance summary with:
- * - Top 3 user avatars with revenue and percentage
- * - Performance metrics (revenue, growth percentage)
- * - Achievement badges (Top sales, Sales streak, Top review)
- * - Details action button
- * 
- * @component
+ * Pixel-perfect implementation matching reference design
+ * Shows user performance summary with achievements
  */
 
 import { useDashboard } from '../../context/DashboardContext';
@@ -15,14 +10,13 @@ import { useDashboard } from '../../context/DashboardContext';
 const UserStatsRow = () => {
   const { isLoading } = useDashboard();
 
-  // Loading state
   if (isLoading) {
     return (
       <div className="bg-bg-elevated dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card h-16 animate-pulse" />
     );
   }
 
-  // Top 3 users by revenue
+  // User data matching reference exactly
   const users = [
     { avatar: 'https://i.pravatar.cc/100?img=11', revenue: '$209,633', percent: '39.63%' },
     { avatar: 'https://i.pravatar.cc/100?img=5', revenue: '$156,841', percent: '29.65%' },
@@ -41,22 +35,19 @@ const UserStatsRow = () => {
       className="flex flex-col lg:flex-row gap-3 animate-fade-in" 
       style={{ animationDelay: '150ms' }}
     >
-      {/* Main User Stats Card */}
+      {/* Main Stats Card */}
       <div className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios flex-1 border border-border-subtle/30 dark:border-border-subtle-dark/30">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           
           {/* User Revenue List */}
-          <div className="flex items-center gap-4 md:gap-6">
+          <div className="flex items-center gap-5">
             {users.map((user, index) => (
-              <div key={index} className="flex items-center gap-2 group cursor-pointer">
-                {/* User Avatar */}
+              <div key={index} className="flex items-center gap-2.5 group cursor-pointer">
                 <img 
                   src={user.avatar} 
                   alt={`User ${index + 1}`}
                   className="w-7 h-7 rounded-full border-2 border-white dark:border-gray-700 shadow-sm object-cover group-hover:scale-110 transition-transform"
                 />
-                
-                {/* Revenue and Percentage */}
                 <div className="flex flex-col">
                   <span className="text-sm font-bold text-text-primary dark:text-text-primary-dark tabular-nums">
                     {user.revenue}
@@ -69,19 +60,17 @@ const UserStatsRow = () => {
             ))}
           </div>
 
-          {/* Right Side - Performance Metrics and Action */}
+          {/* Performance Metric & Action */}
           <div className="flex items-center gap-4">
-            {/* Performance Metric with Fire Icon */}
+            {/* Fire Metric */}
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center shadow-sm">
                 <span className="text-xs">🔥</span>
               </div>
-              
-              <span className="text-sm font-semibold text-text-primary dark:text-text-primary-dark tabular-nums">
+              <span className="text-sm font-bold text-text-primary dark:text-text-primary-dark tabular-nums">
                 $45,386
               </span>
-              
-              <span className="text-xs text-accent-success font-medium tabular-nums">
+              <span className="text-xs text-accent-success font-semibold tabular-nums">
                 8.58%
               </span>
             </div>
