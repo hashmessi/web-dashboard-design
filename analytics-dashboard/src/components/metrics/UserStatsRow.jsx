@@ -32,68 +32,66 @@ const UserStatsRow = () => {
 
   return (
     <div 
-      className="flex flex-col lg:flex-row gap-3 animate-fade-in" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios border border-border-subtle/30 dark:border-border-subtle-dark/30 animate-fade-in" 
       style={{ animationDelay: '150ms' }}
     >
-      {/* Main Stats Card */}
-      <div className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios flex-1 border border-border-subtle/30 dark:border-border-subtle-dark/30">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          
-          {/* User Revenue List */}
-          <div className="flex items-center gap-5">
-            {users.map((user, index) => (
-              <div key={index} className="flex items-center gap-2.5 group cursor-pointer">
-                <img 
-                  src={user.avatar} 
-                  alt={`User ${index + 1}`}
-                  className="w-7 h-7 rounded-full border-2 border-white dark:border-gray-700 shadow-sm object-cover group-hover:scale-110 transition-transform"
-                />
-                <div className="flex flex-col">
-                  <span className="text-sm font-bold text-text-primary dark:text-text-primary-dark tabular-nums">
-                    {user.revenue}
-                  </span>
-                  <span className="text-[10px] text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
-                    {user.percent}
-                  </span>
-                </div>
+      {/* Top Section: User Revenue + Fire Metric + Details */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
+        
+        {/* User Revenue List */}
+        <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+          {users.map((user, index) => (
+            <div key={index} className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer">
+              <img 
+                src={user.avatar} 
+                alt={`User ${index + 1}`}
+                className="w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 border-white dark:border-gray-700 shadow-sm object-cover group-hover:scale-110 transition-transform flex-shrink-0"
+              />
+              <div className="flex flex-col">
+                <span className="text-xs sm:text-sm font-bold text-text-primary dark:text-text-primary-dark tabular-nums whitespace-nowrap">
+                  {user.revenue}
+                </span>
+                <span className="text-[9px] sm:text-[10px] text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
+                  {user.percent}
+                </span>
               </div>
-            ))}
-          </div>
-
-          {/* Performance Metric & Action */}
-          <div className="flex items-center gap-4">
-            {/* Fire Metric */}
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center shadow-sm">
-                <span className="text-xs">🔥</span>
-              </div>
-              <span className="text-sm font-bold text-text-primary dark:text-text-primary-dark tabular-nums">
-                $45,386
-              </span>
-              <span className="text-xs text-accent-success font-semibold tabular-nums">
-                8.58%
-              </span>
             </div>
-            
-            {/* Details Button */}
-            <button className="px-4 py-1.5 bg-gray-900 dark:bg-white text-white dark:text-black text-xs font-semibold rounded-full hover:opacity-90 transition-opacity shadow-sm">
-              Details
-            </button>
+          ))}
+        </div>
+
+        {/* Performance Metric & Action */}
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          {/* Fire Metric */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center shadow-sm flex-shrink-0">
+              <span className="text-[10px] sm:text-xs">🔥</span>
+            </div>
+            <span className="text-xs sm:text-sm font-bold text-text-primary dark:text-text-primary-dark tabular-nums whitespace-nowrap">
+              $45,386
+            </span>
+            <span className="text-[10px] sm:text-xs text-accent-success font-semibold tabular-nums">
+              8.58%
+            </span>
           </div>
+          
+          {/* Details Button */}
+          <button className="px-3 sm:px-4 py-1 sm:py-1.5 bg-gray-900 dark:bg-white text-white dark:text-black text-[10px] sm:text-xs font-semibold rounded-full hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap">
+            Details
+          </button>
         </div>
       </div>
 
-      {/* Achievement Badges */}
-      <div className="flex items-center gap-2 flex-wrap">
+      {/* Bottom Section: Achievement Badges - integrated in same card */}
+      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap pt-3 border-t border-border-subtle/20 dark:border-border-subtle-dark/20">
         {badges.map((badge, index) => (
           <div 
             key={index} 
-            className="bg-white dark:bg-bg-elevated-dark rounded-full px-3 py-2 shadow-card hover:shadow-hover transition-all duration-300 ease-ios flex items-center gap-1.5 cursor-pointer border border-border-subtle/30 dark:border-border-subtle-dark/30 hover:border-accent-pink/30"
+            className="bg-gray-50 dark:bg-white/5 rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 flex items-center gap-1 sm:gap-1.5 cursor-pointer hover:bg-gray-100 dark:hover:bg-white/10 transition-colors whitespace-nowrap"
           >
-            <span className="text-xs font-medium text-text-primary dark:text-text-primary-dark">
+            <span className="text-[10px] sm:text-xs font-medium text-text-primary dark:text-text-primary-dark">
               {badge.label}
             </span>
-            <span className="text-xs">{badge.emoji}</span>
+            <span className="text-[10px] sm:text-xs">{badge.emoji}</span>
           </div>
         ))}
       </div>

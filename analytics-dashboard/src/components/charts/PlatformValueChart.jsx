@@ -39,28 +39,28 @@ const PlatformValueChart = () => {
 
   return (
     <div 
-      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in h-full flex flex-col border border-border-subtle/30 dark:border-border-subtle-dark/30" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-3 sm:p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in h-full flex flex-col border border-border-subtle/30 dark:border-border-subtle-dark/30" 
       style={{ animationDelay: '350ms' }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 rounded bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center text-white">
+      <div className="flex items-center justify-between mb-2 sm:mb-3 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="w-5 h-5 rounded bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center text-white flex-shrink-0">
             <DribbbleIcon />
           </div>
-          <span className="text-sm font-semibold text-text-primary dark:text-text-primary-dark">Platform value</span>
-          <span className="text-[10px] text-text-tertiary">Dribbble</span>
-          <ChevronDown size={10} className="text-text-tertiary" />
+          <span className="text-xs sm:text-sm font-semibold text-text-primary dark:text-text-primary-dark">Platform value</span>
+          <span className="text-[10px] text-text-tertiary hidden sm:inline">Dribbble</span>
+          <ChevronDown size={10} className="text-text-tertiary hidden sm:inline" />
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-3">
+      <div className="flex gap-1 mb-2 sm:mb-3 flex-shrink-0">
         {tabs.map((tab, index) => (
           <button
             key={tab}
             className={clsx(
-              "px-3 py-1.5 rounded-full text-[10px] font-medium transition-all",
+              "px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-[9px] sm:text-[10px] font-medium transition-all",
               index === 0 
                 ? "bg-gray-900 dark:bg-white text-white dark:text-black shadow-sm" 
                 : "text-text-secondary dark:text-text-secondary-dark hover:bg-gray-100 dark:hover:bg-white/10"
@@ -72,15 +72,15 @@ const PlatformValueChart = () => {
       </div>
 
       {/* Summary Card */}
-      <div className="bg-accent-pink text-white rounded-xl p-3 mb-3 relative overflow-hidden">
+      <div className="bg-accent-pink text-white rounded-xl p-2.5 sm:p-3 mb-2 sm:mb-3 relative overflow-hidden flex-shrink-0">
         <div className="absolute -right-4 -top-4 w-16 h-16 bg-white/10 rounded-full blur-xl" />
         
         <div className="relative z-10">
-          <div className="text-[9px] opacity-80 mb-0.5">Average monthly</div>
-          <div className="text-sm font-bold mb-1">Revenue</div>
-          <div className="text-xl font-bold tabular-nums">$18,552</div>
+          <div className="text-[8px] sm:text-[9px] opacity-80 mb-0.5">Average monthly</div>
+          <div className="text-xs sm:text-sm font-bold mb-1">Revenue</div>
+          <div className="text-lg sm:text-xl font-bold tabular-nums">$18,552</div>
           
-          <div className="flex gap-4 mt-2 text-[9px]">
+          <div className="flex gap-3 sm:gap-4 mt-1.5 sm:mt-2 text-[8px] sm:text-[9px]">
             <div>
               <span className="opacity-80">Leads</span>
               <div className="font-bold tabular-nums">373 <span className="opacity-60">97/276</span></div>
@@ -93,21 +93,21 @@ const PlatformValueChart = () => {
         </div>
       </div>
 
-      {/* Bar Chart with Y-axis */}
-      <div className="flex-1 flex gap-2 min-h-[100px]">
+      {/* Bar Chart with Y-axis - Takes remaining space */}
+      <div className="flex-1 flex gap-2 min-h-[120px] sm:min-h-[150px]">
         {/* Y-axis labels */}
-        <div className="flex flex-col justify-between text-[8px] text-text-tertiary tabular-nums py-1">
+        <div className="flex flex-col justify-between text-[7px] sm:text-[8px] text-text-tertiary tabular-nums py-1 flex-shrink-0">
           {yLabels.map(label => (
-            <span key={label}>{label}</span>
+            <span key={label} className="whitespace-nowrap">{label}</span>
           ))}
         </div>
         
-        {/* Bars */}
-        <div className="flex-1 flex items-end justify-between gap-2">
+        {/* Bars - Fill remaining width */}
+        <div className="flex-1 flex items-end justify-between gap-1 sm:gap-2">
           {barData.map((bar, index) => (
-            <div key={index} className="flex flex-col items-center flex-1 group">
+            <div key={index} className="flex flex-col items-center flex-1 group h-full justify-end">
               {/* Value tooltip on hover */}
-              <div className="mb-1 text-[9px] font-bold text-text-primary dark:text-text-primary-dark opacity-0 group-hover:opacity-100 transition-opacity tabular-nums">
+              <div className="mb-1 text-[8px] sm:text-[9px] font-bold text-text-primary dark:text-text-primary-dark opacity-0 group-hover:opacity-100 transition-opacity tabular-nums">
                 ${bar.value.toLocaleString()}
               </div>
               
@@ -115,7 +115,7 @@ const PlatformValueChart = () => {
               <div 
                 style={{ height: `${bar.height}%` }}
                 className={clsx(
-                  "w-full rounded-lg transition-all duration-500 ease-ios cursor-pointer min-h-[20px]",
+                  "w-full rounded-md sm:rounded-lg transition-all duration-500 ease-ios cursor-pointer min-h-[16px]",
                   bar.highlight 
                     ? "bg-accent-pink shadow-pink-glow hover:shadow-lg" 
                     : "bg-gray-300 dark:bg-gray-600 hover:bg-gray-400"
@@ -123,7 +123,7 @@ const PlatformValueChart = () => {
               />
               
               {/* Month label */}
-              <div className="mt-1.5 text-[9px] text-text-tertiary dark:text-text-tertiary-dark font-medium">
+              <div className="mt-1 sm:mt-1.5 text-[8px] sm:text-[9px] text-text-tertiary dark:text-text-tertiary-dark font-medium">
                 {bar.month}
               </div>
             </div>

@@ -100,10 +100,10 @@ const RevenueBarChart = () => {
 
   return (
     <div 
-      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-3 sm:p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full" 
       style={{ animationDelay: '200ms' }}
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 h-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 h-full">
         
         {/* Left: Platform List */}
         <div className="flex flex-col h-full">
@@ -138,7 +138,7 @@ const RevenueBarChart = () => {
         </div>
 
         {/* Right: Bar Chart */}
-        <div className="bg-gray-50 dark:bg-white/5 rounded-2xl p-4 flex flex-col h-full min-h-[200px]">
+        <div className="bg-gray-50 dark:bg-white/5 rounded-xl sm:rounded-2xl p-3 sm:p-4 flex flex-col h-full min-h-[180px] sm:min-h-[200px]">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1.5">
               <button className="p-1.5 hover:bg-white dark:hover:bg-white/10 rounded-lg transition-colors text-text-secondary">
@@ -166,7 +166,7 @@ const RevenueBarChart = () => {
                     "w-full rounded-xl transition-all duration-500 ease-out min-h-[16px] cursor-pointer",
                     bar.highlight 
                       ? "bg-accent-pink shadow-pink-glow hover:shadow-lg" 
-                      : "bg-white dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 shadow-sm"
+                      : "bg-gray-200 dark:bg-gray-600 hover:bg-gray-300 dark:hover:bg-gray-500 shadow-sm"
                   )}
                 />
               </div>

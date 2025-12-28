@@ -47,11 +47,11 @@ const DataTable = () => {
 
   return (
     <div 
-      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-3 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full overflow-hidden" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-3 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full flex flex-col overflow-hidden" 
       style={{ animationDelay: '400ms' }}
     >
       {/* Tab Header */}
-      <div className="flex items-center gap-3 mb-3 pb-2 border-b border-border-subtle/20 dark:border-border-subtle-dark/20">
+      <div className="flex items-center gap-3 mb-3 pb-2 border-b border-border-subtle/20 dark:border-border-subtle-dark/20 flex-shrink-0">
         {tabs.map((tab, index) => (
           <button
             key={tab}
@@ -68,7 +68,7 @@ const DataTable = () => {
       </div>
 
       {/* User Rows - Scrollable */}
-      <div className="space-y-1.5 overflow-x-auto">
+      <div className="flex-1 space-y-1.5 overflow-x-auto overflow-y-auto">
         {users.map((user, index) => (
           <div 
             key={index}

@@ -53,14 +53,14 @@ const SalesDynamicChart = () => {
 
   return (
     <div 
-      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios relative overflow-hidden h-full flex flex-col animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-3 sm:p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios relative overflow-hidden h-full flex flex-col animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30" 
       style={{ animationDelay: '300ms' }}
     >
       {/* Header */}
-      <div className="flex justify-between items-start mb-2 relative z-10">
+      <div className="flex justify-between items-start mb-2 relative z-10 flex-shrink-0">
         <div>
-          <h4 className="font-semibold text-text-primary dark:text-text-primary-dark text-sm mb-1">Sales dynamic</h4>
-          <div className="flex gap-3 text-[10px] text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
+          <h4 className="font-semibold text-text-primary dark:text-text-primary-dark text-xs sm:text-sm mb-1">Sales dynamic</h4>
+          <div className="flex gap-2 sm:gap-3 text-[9px] sm:text-[10px] text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
             {weeks.map(w => (
               <span key={w} className="hover:text-text-primary dark:hover:text-text-primary-dark cursor-pointer transition-colors">{w}</span>
             ))}
@@ -72,7 +72,7 @@ const SalesDynamicChart = () => {
       </div>
 
       {/* Chart */}
-      <div className="flex-1 flex items-center justify-center relative min-h-[90px]">
+      <div className="flex-1 flex items-center justify-center relative min-h-[80px] sm:min-h-[100px]">
         <svg viewBox="0 0 360 100" className="w-full h-full" preserveAspectRatio="none">
           <defs>
             <linearGradient id="sales-gradient" x1="0" x2="0" y1="0" y2="1">
@@ -141,33 +141,33 @@ const SalesDynamicChart = () => {
       </div>
 
       {/* Footer - User Stats */}
-      <div className="flex items-center gap-3 pt-3 border-t border-border-subtle/30 dark:border-border-subtle-dark/30">
+      <div className="flex items-center gap-2 pt-3 border-t border-border-subtle/30 dark:border-border-subtle-dark/30 flex-shrink-0 flex-wrap">
         <img 
           src="https://i.pravatar.cc/100?img=3" 
-          className="w-7 h-7 rounded-full border-2 border-white dark:border-bg-elevated-dark shadow-sm object-cover" 
+          className="w-7 h-7 rounded-full border-2 border-white dark:border-bg-elevated-dark shadow-sm object-cover flex-shrink-0" 
           alt="Eren Y." 
         />
         
-        <div className="min-w-0">
-          <div className="font-semibold text-text-primary dark:text-text-primary-dark text-sm">Eren Y.</div>
+        <div className="min-w-0 flex-shrink-0">
+          <div className="font-semibold text-text-primary dark:text-text-primary-dark text-sm whitespace-nowrap">Eren Y.</div>
           <div className="text-[10px] text-text-tertiary dark:text-text-tertiary-dark tabular-nums">$117,115</div>
         </div>
         
         <div className="ml-auto flex items-center gap-2 flex-wrap">
           {/* Badges */}
-          <div className="flex gap-1">
+          <div className="flex gap-1 flex-shrink-0">
             <span className="w-5 h-5 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center text-[9px] font-bold tabular-nums">22</span>
             <span className="px-1.5 h-5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 flex items-center justify-center text-[9px] font-bold">84</span>
           </div>
           
           {/* KPIs */}
-          <div className="flex gap-2 text-[10px] font-semibold text-text-primary dark:text-text-primary-dark tabular-nums">
+          <div className="flex gap-2 text-[10px] font-semibold text-text-primary dark:text-text-primary-dark tabular-nums flex-shrink-0">
             <span>0.79</span>
             <span>32%</span>
           </div>
           
           {/* Rating */}
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-1 items-center flex-shrink-0">
             <span className="w-5 h-5 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex items-center justify-center text-[9px] font-bold tabular-nums">7</span>
             <span className="text-[10px] font-bold text-text-primary dark:text-text-primary-dark tabular-nums">15</span>
           </div>

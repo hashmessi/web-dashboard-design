@@ -48,7 +48,7 @@ const MetricCard = ({
   if (variant === 'dark') {
     return (
       <div 
-        className="rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full min-h-[120px] flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white"
+        className="rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full flex flex-col justify-between relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white"
         style={{ animationDelay: `${delay}ms`, animationFillMode: 'forwards' }}
       >
         {/* Decorative element */}
@@ -89,7 +89,7 @@ const MetricCard = ({
   if (variant === 'highlight') {
     return (
       <div 
-        className="rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full min-h-[120px] flex flex-col bg-white dark:bg-bg-elevated-dark border border-border-subtle/30 dark:border-border-subtle-dark/30"
+        className="rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full flex flex-col bg-white dark:bg-bg-elevated-dark border border-border-subtle/30 dark:border-border-subtle-dark/30"
         style={{ animationDelay: `${delay}ms`, animationFillMode: 'forwards' }}
       >
         <h4 className="text-[10px] font-medium uppercase tracking-wider text-text-tertiary dark:text-text-tertiary-dark mb-2">{title}</h4>
@@ -122,7 +122,7 @@ const MetricCard = ({
     
     return (
       <div 
-        className="rounded-2xl p-4 shadow-card hover:shadow-hover hover:scale-[1.02] transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full min-h-[120px] flex flex-col bg-white dark:bg-bg-elevated-dark border border-border-subtle/30 dark:border-border-subtle-dark/30"
+        className="rounded-2xl p-4 shadow-card hover:shadow-hover hover:scale-[1.02] transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full flex flex-col bg-white dark:bg-bg-elevated-dark border border-border-subtle/30 dark:border-border-subtle-dark/30"
         style={{ animationDelay: `${delay}ms`, animationFillMode: 'forwards' }}
       >
         <h4 className="text-[10px] font-medium uppercase tracking-wider text-text-tertiary dark:text-text-tertiary-dark mb-2">{title}</h4>
@@ -161,7 +161,7 @@ const MetricCard = ({
   // DEFAULT VARIANT (Top Sales)
   return (
     <div 
-      className="rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full min-h-[120px] flex flex-col justify-between bg-white dark:bg-bg-elevated-dark border border-border-subtle/30 dark:border-border-subtle-dark/30"
+      className="rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios opacity-0 animate-fade-in h-full flex flex-col justify-between bg-white dark:bg-bg-elevated-dark border border-border-subtle/30 dark:border-border-subtle-dark/30"
       style={{ animationDelay: `${delay}ms`, animationFillMode: 'forwards' }}
     >
       {/* Header */}

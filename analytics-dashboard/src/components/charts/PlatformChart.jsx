@@ -14,7 +14,7 @@ const PlatformChart = () => {
   
   if (isLoading) {
     return (
-      <div className="bg-bg-elevated dark:bg-bg-elevated-dark rounded-2xl p-6 shadow-card h-[280px] animate-pulse" />
+      <div className="bg-bg-elevated dark:bg-bg-elevated-dark rounded-2xl p-6 shadow-card h-full animate-pulse" />
     );
   }
   
@@ -42,11 +42,11 @@ const PlatformChart = () => {
 
   return (
     <div 
-      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full" 
+      className="bg-white dark:bg-bg-elevated-dark rounded-2xl p-4 shadow-card hover:shadow-hover transition-all duration-300 ease-ios animate-fade-in border border-border-subtle/30 dark:border-border-subtle-dark/30 h-full flex flex-col" 
       style={{ animationDelay: '250ms' }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-3 flex-shrink-0">
         <h4 className="font-semibold text-text-primary dark:text-text-primary-dark text-sm">
           Work with platforms
         </h4>
@@ -56,7 +56,7 @@ const PlatformChart = () => {
       </div>
 
       {/* Trend Badges */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-4 flex-shrink-0">
         <span className="bg-accent-pink text-white text-[10px] px-2 py-1 rounded-full flex items-center gap-1 shadow-sm font-bold tabular-nums">
           ↑ 3
         </span>
@@ -66,9 +66,9 @@ const PlatformChart = () => {
       </div>
 
       {/* Chart and Legend */}
-      <div className="flex items-center gap-4">
+      <div className="flex gap-4 flex-1 min-h-0">
         {/* Donut Chart */}
-        <div className="relative w-28 h-28 flex items-center justify-center shrink-0">
+        <div className="relative w-28 h-28 flex items-center justify-center flex-shrink-0">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
             {/* Background */}
             <circle
@@ -108,43 +108,48 @@ const PlatformChart = () => {
             <span className="text-xl font-bold text-text-primary dark:text-text-primary-dark tabular-nums">
               45.3%
             </span>
-            <span className="text-[10px] font-medium text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
+            <span className="text-[9px] font-medium text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
               $71,048
             </span>
           </div>
         </div>
 
-        {/* Legend */}
-        <div className="flex-1 grid grid-cols-2 gap-1.5">
-          {platforms.map(platform => (
-            <div 
-              key={platform.name} 
-              className="flex flex-col p-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-white/5 transition-colors cursor-pointer"
-            >
-              <div className="flex items-center gap-1.5 text-[10px] text-text-secondary dark:text-text-secondary-dark font-medium mb-0.5">
-                <span className={clsx("w-2 h-2 rounded-full", platform.color)} />
-                <span>{platform.name}</span>
+        {/* Legend - single scrollbar at bottom for all rows */}
+        <div className="flex-1 flex flex-col min-w-0 overflow-x-auto overflow-y-hidden scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+          <div className="flex flex-col justify-center gap-2 min-w-max py-1">
+            {platforms.map(platform => (
+              <div 
+                key={platform.name} 
+                className="flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-white/5 rounded-lg py-1 px-1 transition-colors cursor-pointer"
+              >
+                {/* Color indicator */}
+                <span className={clsx("w-2.5 h-2.5 rounded-full flex-shrink-0", platform.color)} />
+                
+                {/* Platform name */}
+                <span className="text-xs text-text-secondary dark:text-text-secondary-dark font-medium whitespace-nowrap">
+                  {platform.name}
+                </span>
+                
+                {/* HOT badge for Dribbble */}
                 {platform.isHot && (
-                  <span className="bg-pink-900/90 text-pink-300 text-[8px] px-1.5 py-0.5 rounded font-bold uppercase tracking-wide border border-pink-700/50 animate-pulse">
-                    HOT
-                  </span>
+                  <span className="text-[9px] flex-shrink-0">🔥</span>
                 )}
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="font-bold text-text-primary dark:text-text-primary-dark text-xs tabular-nums">
+                
+                {/* Stats */}
+                <span className="font-bold text-text-primary dark:text-text-primary-dark text-xs tabular-nums whitespace-nowrap ml-auto">
                   {platform.percentage}%
                 </span>
-                <span className="text-[10px] text-text-tertiary dark:text-text-tertiary-dark tabular-nums">
+                <span className="text-[10px] text-text-tertiary dark:text-text-tertiary-dark tabular-nums whitespace-nowrap">
                   ${(platform.revenue / 1000).toFixed(0)}k
                 </span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="border-t border-border-subtle/20 dark:border-border-subtle-dark/20">
+      <div className="pt-3 mt-auto border-t border-border-subtle/20 dark:border-border-subtle-dark/20 flex-shrink-0">
         <span className="text-xs text-text-tertiary dark:text-text-tertiary-dark">
           Sales dynamic
         </span>
