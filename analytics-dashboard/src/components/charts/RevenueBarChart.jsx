@@ -5,6 +5,7 @@
  * Platform list with bar chart section
  */
 
+import { ChevronDown, Filter, BarChart2, List } from 'lucide-react';
 import clsx from 'clsx';
 import { useDashboard } from '../../context/DashboardContext';
 
